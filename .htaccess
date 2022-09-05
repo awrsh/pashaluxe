@@ -1,0 +1,23 @@
+<files “.htaccess”>
+order allow,deny
+deny from all
+</files>
+
+Options All -Indexes
+
+RewriteEngine On
+
+# BEGIN Compress text files
+<ifModule mod_deflate.c>
+<filesMatch “\.(css|js|x?html?|php|woff|ttf|png|jpg|gif)$”>
+SetOutputFilter DEFLATE
+</filesMatch>
+</ifModule>
+# END Compress text files
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+
+
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
